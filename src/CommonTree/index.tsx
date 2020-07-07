@@ -1,8 +1,8 @@
-import React, { ReactElement, useState, useEffect } from "react";
-import { Tree } from "antd";
+import React, { ReactElement, useState, useEffect, useCallback } from 'react';
+import { Tree } from 'antd';
 import { TreeProps } from 'antd/lib/tree';
 
-interface CommonTreeProps extends TreeProps{
+interface CommonTreeProps extends TreeProps {
   gData: Array<any>;
   content?: ReactElement | ReactElement[] | null;
   style?: object;
@@ -12,7 +12,7 @@ interface CommonTreeProps extends TreeProps{
   checkTreeNode?: (param: any, e: any) => void;
   [name: string]: any;
   checkedKeys?: Array<any>;
-  expandedKeys?: Array<any>;
+  isExpandedKeys?: boolean;
 }
 
 export default function CommonTree(props: CommonTreeProps) {
@@ -27,18 +27,28 @@ export default function CommonTree(props: CommonTreeProps) {
     checkTreeNode,
     onTreeDropEnd,
     style,
+    hasExpandedKeys,
   } = props;
   const [newgData, setNewgData] = useState(gData);
-  const [newCheckedKeys, setNewCheckedKeys] = useState<any[]|undefined>(gData);
-  const [Iprops, setIProps]= useState<{[name: string]: any}>({})
+  const [newCheckedKeys, setNewCheckedKeys] = useState<any[] | undefined>(
+    gData,
+  );
+  const [Iprops, setIProps] = useState<{ [name: string]: any }>({});
 
   useEffect(() => {
-    if (checkable) setIProps({newCheckedKeys})
-  }, [])
+    if (checkable) setIProps({ ...Iprops, newCheckedKeys });
+  }, []);
 
   useEffect(() => {
     setNewgData(gData);
     setNewCheckedKeys(checkedKeys);
+
+    if (hasExpandedKeys) {
+      setIProps({
+        ...Iprops,
+        ...{ expandedKeys: handleExpandedKeys(gData, []) },
+      });
+    }
   }, [gData, checkedKeys]);
 
   const onSelect = (selectedKeys: any, info: any) => {
@@ -58,10 +68,15 @@ export default function CommonTree(props: CommonTreeProps) {
   const onDrop = (info: any) => {
     const dropKey = info.node.key;
     const dragKey = info.dragNode.key;
-    const dropPos = info.node.pos.split("-");
-    const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
+    const dropPos = info.node.pos.split('-');
+    const dropPosition =
+      info.dropPosition - Number(dropPos[dropPos.length - 1]);
 
-    const loop = (data: any[], key: any, callback: {(item: any, index: any, arr: any): void} ) => {
+    const loop = (
+      data: any[],
+      key: any,
+      callback: { (item: any, index: any, arr: any): void },
+    ) => {
       data.forEach((item, index, arr) => {
         if (item.key === key) {
           return callback(item, index, arr);
@@ -73,14 +88,14 @@ export default function CommonTree(props: CommonTreeProps) {
     };
     const data = [...newgData];
 
-    let dragObj: any
+    let dragObj: any;
     loop(data, dragKey, (item, index, arr) => {
       arr.splice(index, 1);
       dragObj = item;
     });
 
     if (!info.dropToGap) {
-      loop(data, dropKey, (item) => {
+      loop(data, dropKey, item => {
         item.children = item.children || [];
         item.children.push(dragObj);
       });
@@ -89,7 +104,7 @@ export default function CommonTree(props: CommonTreeProps) {
       info.node.props.expanded &&
       dropPosition === 1
     ) {
-      loop(data, dropKey, (item) => {
+      loop(data, dropKey, item => {
         item.children = item.children || [];
         item.children.unshift(dragObj);
       });
@@ -113,21 +128,38 @@ export default function CommonTree(props: CommonTreeProps) {
     }
   };
 
+  const handleExpandedKeys = (data: any[], arr: any[]) => {
+    for (let i = 0; i < data.length; i++) {
+      arr.push(data[i].key);
+      if (data[i].children) {
+        handleExpandedKeys(data[i].children, arr);
+      }
+    }
+    return arr;
+  };
+
+  const onExpand = (expandedKeys: React.Key[]) => {
+    if (props.hasExpandedKeys) {
+      setIProps({ ...Iprops, expandedKeys });
+    }
+  };
+
   return (
     <div className="DialogMenuManagerLeft" style={style}>
       {content}
-        <Tree
-          checkable={checkable || false}
-          draggable={draggable || false}
-          blockNode
-          onSelect={onSelect}
-          onCheck={onCheck}
-          treeData={newgData}
-          onDragEnd={dropEnd}
-          onDrop={onDrop}
-          height={height}
-          {...Iprops}
-        />
+      <Tree
+        checkable={checkable || false}
+        draggable={draggable || false}
+        blockNode
+        onSelect={onSelect}
+        onCheck={onCheck}
+        treeData={newgData}
+        onDragEnd={dropEnd}
+        onDrop={onDrop}
+        onExpand={onExpand}
+        height={height}
+        {...Iprops}
+      />
     </div>
   );
 }

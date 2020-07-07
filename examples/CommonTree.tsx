@@ -1,36 +1,69 @@
-import React, { useState, useCallback } from "react";
-import { Menu, Dropdown } from "antd";
-import { CommonTree } from "../src";
+import React, { useState, useCallback } from 'react';
+import { Menu, Dropdown } from 'antd';
+import { CommonTree } from '../src';
 import {
   MoreOutlined,
   PlusCircleOutlined,
   MenuFoldOutlined,
   DeleteOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 import { MenuInfo } from 'rc-menu/lib/interface';
 
 const treeDataSource = [
   {
-    name: "总部",
-    key: "0",
+    name: '总部',
+    key: '0',
     children: [
       {
-        name: "业务部",
-        key: "1",
+        name: '业务部',
+        key: '1',
         children: [
           {
-            name: "业务部-1",
-            key: "2",
+            name: '业务部-1',
+            key: '2',
           },
           {
-            name: "业务部-2",
-            key: "3",
+            name: '业务部-2',
+            key: '3',
           },
         ],
       },
       {
-        name: "财务部",
-        key: "4",
+        name: '财务部',
+        key: '4',
+      },
+    ],
+  },
+];
+
+const treeData_2 = [
+  {
+    name: '总部',
+    key: '0',
+    children: [
+      {
+        name: '业务部',
+        key: '1',
+        children: [
+          {
+            name: '业务部-1',
+            key: '2',
+          },
+          {
+            name: '业务部-2',
+            key: '3',
+          },
+        ],
+      },
+      {
+        name: '财务部',
+        key: '4',
+        children: [
+          {
+            name: '新增节点',
+            key: Math.random(),
+          },
+        ],
       },
     ],
   },
@@ -39,13 +72,8 @@ const treeDataSource = [
 export default () => {
   const [checkedKeys, setCheckedKeys] = useState<Array<any>>([]);
   const [hoverKey, setHoverKey] = useState<string>('');
-  const [treeData, setTreeData] = useState<any[]>(treeDataSource)
+  const [treeData, setTreeData] = useState<any[]>(treeDataSource);
 
-  useCallback(
-    () => {
-    },
-    [treeData],
-  )
   /**
    * 点击树
    */
@@ -73,12 +101,17 @@ export default () => {
   const menuFunction = (data: any, e: MenuInfo) => {
     e.domEvent.stopPropagation();
     // ...
+    setTreeData(treeData_2);
   };
 
   /**
    * 组装树结构
    */
-  const formatTreeData = (data: any[], hasOption: boolean, expandedKeys: any[]) => {
+  const formatTreeData = (
+    data: any[],
+    hasOption: boolean,
+    expandedKeys: any[],
+  ) => {
     if (Array.isArray(data)) {
       for (let i = 0; i < data.length; i++) {
         if (hasOption) {
@@ -86,23 +119,23 @@ export default () => {
             <span
               className="tree_item"
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
               onMouseEnter={() => setHoverKey(data[i].key)}
               onMouseLeave={() => setHoverKey('')}
             >
               <span>{data[i].name}</span>
-              {hoverKey === data[i].key ?
+              {hoverKey === data[i].key ? (
                 <Dropdown
                   overlay={
                     <Menu>
-                      <Menu.Item onClick={(e) => menuFunction(data[i], e)}>
+                      <Menu.Item onClick={e => menuFunction(data[i], e)}>
                         <PlusCircleOutlined />
                         <span>功能菜单一</span>
                       </Menu.Item>
-                      <Menu.Item>
+                      <Menu.Item onClick={e => menuFunction(data[i], e)}>
                         <DeleteOutlined />
                         <span>功能菜单二</span>
                       </Menu.Item>
@@ -113,8 +146,8 @@ export default () => {
                     <MenuFoldOutlined />
                     <MoreOutlined />
                   </div>
-                </Dropdown> : null
-              }
+                </Dropdown>
+              ) : null}
             </span>
           );
         }
@@ -128,14 +161,10 @@ export default () => {
     return { data, expandedKeys };
   };
 
-  const addTreeNode = (newNode: any[]) => {
-
-  }
-
   return (
     <div className="DialogMenuManagerContent">
       <CommonTree
-        style={{ width: "30%" }}
+        style={{ width: '30%' }}
         checkable={true}
         draggable={true}
         onTreeSelect={onTreeSelect}
@@ -145,11 +174,11 @@ export default () => {
           <div
             className="addMenu"
             style={{
-              color: "#537BFF",
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              cursor: "pointer",
+              color: '#537BFF',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              cursor: 'pointer',
             }}
           >
             <PlusCircleOutlined />
@@ -158,6 +187,7 @@ export default () => {
         }
         gData={formatTreeData(treeData, true, []).data}
         checkedKeys={checkedKeys}
+        hasExpandedKeys={true}
       />
     </div>
   );
