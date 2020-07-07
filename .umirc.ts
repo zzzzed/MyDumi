@@ -1,8 +1,24 @@
-import { defineConfig } from 'dumi';
-
-export default defineConfig({
+export default {
   title: 'myDumi',
-  // publicPath: "/zed/",
-  outputPath: 'dist',
-  // more config: https://d.umijs.org/config
-});
+  description: 'zed 组件库',
+  mode: 'doc',
+  base: '/',
+  publicPath: '/',
+  extraBabelPlugins: [
+    [
+      'react-directives',
+      {
+        prefix: 'r',
+        pragmaType: 'React',
+      },
+    ],
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: 'css',
+      },
+    ],
+  ],
+};
