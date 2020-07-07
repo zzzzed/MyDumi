@@ -3,7 +3,7 @@ export default {
   description: 'zed 组件库',
   mode: 'doc',
   base: '/',
-  publicPath: 'MyDumi/',
+  publicPath: './',
   extraBabelPlugins: [
     [
       'react-directives',
