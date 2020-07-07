@@ -2,7 +2,7 @@ export default {
   title: 'myDumi',
   description: 'zed 组件库',
   mode: 'doc',
-  base: '/',
+  base: 'MyDumi/',
   publicPath: '/',
   extraBabelPlugins: [
     [

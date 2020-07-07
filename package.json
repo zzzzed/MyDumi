@@ -2,7 +2,7 @@
   "private": true,
   "name": "myDumi",
   "version": "1.0.0",
-  "homepage": "https://zzzzed.github.io/MyDumi/index.html",
+  "homepage": "https://zzzzed.github.io/MyDumi",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
