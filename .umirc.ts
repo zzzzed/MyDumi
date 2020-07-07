@@ -2,8 +2,8 @@ export default {
   title: 'myDumi',
   description: 'zed 组件库',
   mode: 'doc',
-  base: 'MyDumi/',
-  publicPath: '/',
+  base: '/',
+  publicPath: 'MyDumi/',
   extraBabelPlugins: [
     [
       'react-directives',
