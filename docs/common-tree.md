@@ -6,14 +6,15 @@
 
 #### options
 
-| 参数        | 说明              | 类型                 | 默认值  |
-| ----------- | ----------------- | -------------------- | ------- |
-| gData       | 数据源            | Array                | `[]`    |
-| checkable   | 节点前添加 复选框 | boolen               | `false` |
-| checkedKeys | 选中的节点        | Array                | `[]`    |
-| draggable   | 是否可拖拽        | boolen               | `false` |
-| style       | 设置样式          | `Object`             | `false` |
-| content     | 头部传入 DOM      | `React.ReactElement` | `null`  |
+| 参数            | 说明              | 类型                 | 默认值  |
+| --------------- | ----------------- | -------------------- | ------- |
+| gData           | 数据源            | Array                | `[]`    |
+| checkable       | 节点前添加 复选框 | boolen               | `false` |
+| checkedKeys     | 选中的节点        | Array                | `[]`    |
+| draggable       | 是否可拖拽        | boolen               | `false` |
+| style           | 设置样式          | `Object`             | `false` |
+| content         | 头部传入 DOM      | `React.ReactElement` | `null`  |
+| hasExpandedKeys | 展开节点完全受控  | boolean              | `false` |
 
 #### events
 

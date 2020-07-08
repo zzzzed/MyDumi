@@ -12,7 +12,7 @@ interface CommonTreeProps extends TreeProps {
   checkTreeNode?: (param: any, e: any) => void;
   [name: string]: any;
   checkedKeys?: Array<any>;
-  isExpandedKeys?: boolean;
+  hasExpandedKeys?: boolean;
 }
 
 export default function CommonTree(props: CommonTreeProps) {
