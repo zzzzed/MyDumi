@@ -6,7 +6,7 @@ export default {
   mode: 'doc',
   // base: 'MyDumi/',
   // publicPath: '/MyDumi/',
-  base: 'MyDumi/',
+  base: '/',
   publicPath: './',
   extraBabelPlugins: [
     [
