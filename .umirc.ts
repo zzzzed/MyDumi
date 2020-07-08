@@ -7,7 +7,7 @@ export default {
   // base: 'MyDumi/',
   // publicPath: '/MyDumi/',
   base: 'MyDumi/',
-  publicPath: '/',
+  publicPath: './',
   extraBabelPlugins: [
     [
       'react-directives',
