@@ -1,8 +1,11 @@
 export default {
   title: 'myDumi',
   description: 'zed 组件库',
+  hash: true,
+  history: { type: 'hash' },
   mode: 'doc',
   base: 'MyDumi/',
+  // base: '/',
   publicPath: './',
   extraBabelPlugins: [
     [
