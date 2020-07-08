@@ -2,7 +2,7 @@ export default {
   title: 'myDumi',
   description: 'zed 组件库',
   hash: true,
-  // history: { type: 'hash' },
+  history: { type: 'hash' },
   mode: 'doc',
   // base: 'MyDumi/',
   // publicPath: '/MyDumi/',
