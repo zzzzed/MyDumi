@@ -10,13 +10,6 @@ export default {
   publicPath: './',
   extraBabelPlugins: [
     [
-      'react-directives',
-      {
-        prefix: 'r',
-        pragmaType: 'React',
-      },
-    ],
-    [
       'import',
       {
         libraryName: 'antd',
