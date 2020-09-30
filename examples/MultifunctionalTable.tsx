@@ -275,25 +275,16 @@ export default () => {
           <span>{groupTitle.yhzhMc}</span>
         </div>
         <div className="right">
-          <Button
-            r-if={editingKey !== groupTitle.id}
-            disabled={editingKey !== '' && editingKey !== groupTitle.id}
-          >
+          <Button disabled={editingKey !== '' && editingKey !== groupTitle.id}>
             凭证
           </Button>
           <Button
-            r-if={editingKey !== groupTitle.id}
             disabled={editingKey !== '' && editingKey !== groupTitle.id}
             onClick={() => editGroup(groupTitle)}
           >
             编辑
           </Button>
-          <Button
-            r-if={editingKey === groupTitle.id}
-            onClick={() => saveGroup(groupTitle)}
-          >
-            保存
-          </Button>
+          <Button onClick={() => saveGroup(groupTitle)}>保存</Button>
           <Button onClick={() => delbatch(groupTitle)}>删除</Button>
         </div>
       </div>
