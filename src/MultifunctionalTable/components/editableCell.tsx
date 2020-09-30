@@ -13,20 +13,21 @@ const EditableCell: React.FC<EditableCellProps> = ({
   children,
   id,
   rules,
+  col,
   ...restProps
 }) => {
   const getInputType = (record: any, $type: string) => {
-    if ($type === 'select') {
-      return (
-        <Select dropdownClassName="fzhs_drop_panel">
-          <Option key={0} value={0}>
-            0
-          </Option>
-          <Option key={1} value={1}>
-            1
-          </Option>
-        </Select>
-      );
+    if ($type === 'component') {
+      return col.$component;
+    } else if ($type === 'select') {
+      <Select dropdownClassName="fzhs_drop_panel">
+        <Option key={0} value={0}>
+          0
+        </Option>
+        <Option key={1} value={1}>
+          1
+        </Option>
+      </Select>;
     } else if ($type === 'date') {
       return <DatePicker format="YYYY-MM-DD" onChange={() => {}} />;
     } else {

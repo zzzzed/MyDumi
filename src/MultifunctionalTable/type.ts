@@ -13,6 +13,7 @@ export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   record: Item;
   index: number;
   $type: string;
+  col: ColumnsProps;
   children: React.ReactNode;
   rules: any[];
 }

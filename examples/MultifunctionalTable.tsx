@@ -4,6 +4,7 @@ import { Button, Form } from 'antd';
 import moment from 'moment';
 import { Item, GroupItem } from '@/MultifunctionalTable/type';
 import { cloneDeep } from 'lodash';
+import Tree from './CommonTree';
 
 const data = [
   {
@@ -142,7 +143,8 @@ export default () => {
       name: 'ywlxXsz',
       title: '业务类型',
       editable: true,
-      $type: 'select',
+      $type: 'component',
+      $component: <Tree />,
     },
     {
       dataIndex: 'jyje',

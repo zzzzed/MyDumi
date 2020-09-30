@@ -37,6 +37,7 @@ const MultifunctionalTable = (props: IMultifunctionalTableProps) => {
       onCell: (record: Item) => ({
         record,
         $type: col.$type,
+        col,
         dataIndex: col.dataIndex,
         id: record.id,
         title: col.title,
