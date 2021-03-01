@@ -275,9 +275,6 @@ export default () => {
           <span>{groupTitle.yhzhMc}</span>
         </div>
         <div className="right">
-          <Button disabled={editingKey !== '' && editingKey !== groupTitle.id}>
-            凭证
-          </Button>
           <Button
             disabled={editingKey !== '' && editingKey !== groupTitle.id}
             onClick={() => editGroup(groupTitle)}
