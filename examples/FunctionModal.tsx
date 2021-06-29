@@ -1,17 +1,22 @@
 import React from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, message } from 'antd';
 import FunctionModal from '../src/FunctionModal';
 
 interface IProps {
-  destory: () => {};
+  destory: () => void;
+  resolve: () => void;
+  reject: () => void;
 }
 
 const ModalComponent = (props: IProps) => {
-  const { destory } = props;
+  const { destory, resolve, reject } = props;
 
-  const onOk = () => {};
+  const onOk = () => {
+    message.success('do something onOk');
+  };
 
   const onCancel = () => {
+    message.success('do something onCancel');
     destory();
   };
 
