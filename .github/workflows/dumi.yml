@@ -8,12 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-    - name: Build and Deploy
+    -name: Install and Build
+      run: |
+        rm -rf node_modules && yarn && yarn run docs:build
+
+    - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: gh-pages
         FOLDER: dist
-        BUILD_SCRIPT: rm -rf node_modules && yarn && yarn run docs:build
