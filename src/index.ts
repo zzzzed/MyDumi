@@ -1,3 +1,5 @@
 import CommonTree from './CommonTree';
 import MultifunctionalTable from './MultifunctionalTable';
-export { CommonTree, MultifunctionalTable };
+import FunctionModal from './FunctionModal';
+import SlotMachine from './business-component/SlotMachine';
+export { CommonTree, MultifunctionalTable, FunctionModal, SlotMachine };
