@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { SlotMachine } from '../src';
 
 export default () => {
-  const [num, setNum] = useState<number[]>([0, 0, 0]);
+  const [num, setNum] = useState<number[]>([6, 7, 0]);
 
   const begin = () => {
     setTimeout(() => {
@@ -15,12 +15,7 @@ export default () => {
     <>
       <div style={{ display: 'flex', marginBottom: 20 }}>
         {num.map((item, index) => (
-          <SlotMachine
-            key={index}
-            style={style}
-            res={item}
-            delay={index + 2.5}
-          />
+          <SlotMachine key={index} style={style} i={item} delay={index + 2.5} />
         ))}
       </div>
       <Button type="primary" onClick={begin}>
