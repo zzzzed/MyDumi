@@ -1,6 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import { SlotMachine } from '../src';
 
 export default () => {
-  return <SlotMachine />;
+  const [num, setNum] = useState<number[]>([0, 0, 0]);
+
+  const begin = () => {
+    setTimeout(() => {
+      setNum([6, 6, 6]);
+    }, 2000);
+  };
+
+  return (
+    <>
+      <div style={{ display: 'flex', marginBottom: 20 }}>
+        {num.map((item, index) => (
+          <SlotMachine
+            key={index}
+            style={style}
+            res={item}
+            delay={index + 2.5}
+          />
+        ))}
+      </div>
+      <Button type="primary" onClick={begin}>
+        开始
+      </Button>
+    </>
+  );
+};
+
+const style = {
+  width: 26,
+  marginRight: 6,
+  border: '1px solid black',
+  borderRadius: 8,
 };
