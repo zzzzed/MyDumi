@@ -9,13 +9,11 @@ export default () => {
   const begin = () => {
     setStatus('begin');
     setTimeout(() => {
-      let num = (Math.random() * 1000)
-        .toFixed(0)
-        .toString()
-        .split('')
-        .map(Number);
-      setNum(num);
-    }, 2000);
+      let num1 = Math.floor(Math.random() * 10);
+      let num2 = Math.floor(Math.random() * 10);
+      let num3 = Math.floor(Math.random() * 10);
+      setNum([num1, num2, num3]);
+    }, 1000);
   };
 
   const reset = () => {

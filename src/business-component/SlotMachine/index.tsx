@@ -6,11 +6,12 @@ interface IProps {
   delay?: number;
   i: number;
   status: 'begin' | 'end';
+  blurNum?: number;
 }
 
 const SlotMachine = (props: IProps) => {
   const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  const { style, delay, i, status } = props;
+  const { style, delay, i, status, blurNum } = props;
 
   const mergeStyle = ({
     ...style,
@@ -43,11 +44,16 @@ const SlotMachine = (props: IProps) => {
       </ul>
       <svg width="0" height="0">
         <filter id="blur">
-          <feGaussianBlur in="SourceGraphic" stdDeviation={`0 ${blur}`} />
+          <feGaussianBlur in="SourceGraphic" stdDeviation={`0 ${blurNum}`} />
         </filter>
       </svg>
     </div>
   );
+};
+
+SlotMachine.defaultProps = {
+  blurNum: 2,
+  delay: 2,
 };
 
 export default SlotMachine;
