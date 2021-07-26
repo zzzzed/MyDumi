@@ -5,11 +5,12 @@ interface IProps {
   style: React.CSSProperties;
   delay?: number;
   i: number;
+  status: 'begin' | 'end';
 }
 
 const SlotMachine = (props: IProps) => {
   const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  const { style, delay, i } = props;
+  const { style, delay, i, status } = props;
 
   const mergeStyle = ({
     ...style,
@@ -18,8 +19,24 @@ const SlotMachine = (props: IProps) => {
   } as unknown) as CSSProperties;
 
   return (
-    <div style={mergeStyle} className="scroll-num">
-      <ul>
+    <div
+      style={{
+        ...mergeStyle,
+        animation:
+          status === 'begin'
+            ? `enhance-bounce-in-down 1s ${delay}s forwards`
+            : '',
+      }}
+      className="scroll-num"
+    >
+      <ul
+        style={{
+          animation:
+            status === 'begin'
+              ? `move 0.3s linear infinite, bounce-in-down 1s ${delay}s forwards`
+              : '',
+        }}
+      >
         {arr.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
