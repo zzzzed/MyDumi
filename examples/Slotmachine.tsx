@@ -7,6 +7,7 @@ export default () => {
   const [status, setStatus] = useState<'begin' | 'end'>('end');
 
   const begin = () => {
+    if (status === 'begin') return;
     setStatus('begin');
     setTimeout(() => {
       let num1 = Math.floor(Math.random() * 10);
@@ -42,7 +43,8 @@ export default () => {
 };
 
 const style = {
-  width: 26,
+  height: '50px',
+  width: '26px',
   marginRight: 6,
   border: '1px solid black',
   borderRadius: 8,

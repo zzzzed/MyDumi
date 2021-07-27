@@ -15,6 +15,8 @@ const SlotMachine = (props: IProps) => {
 
   const mergeStyle = ({
     ...style,
+    '--width': style.width,
+    '--height': style.height,
     '--i': i,
     '--delay': delay,
   } as unknown) as CSSProperties;
