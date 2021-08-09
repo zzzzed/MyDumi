@@ -8,10 +8,11 @@ interface IProps {
 }
 
 type IComputedData = {
-  startOffset: number;
-  startIndex: number;
-  endIndex: number | null;
+  startOffset: number; // 偏移量
+  startIndex: number; // 起始元素坐标
+  endIndex: number | null; // 视口结束元素坐标
 };
+
 /**
  * 列表项固定高度
  */
