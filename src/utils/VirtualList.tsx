@@ -2,9 +2,9 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import './VirtualList.less';
 
 interface IProps {
-  itemSize: number;
-  listData: any[];
-  screenHeight?: number;
+  itemSize: number; // 每项的高度
+  listData: any[]; // 元数据
+  screenHeight: number; // 可是区域高度
 }
 
 type IComputedData = {
@@ -17,15 +17,21 @@ type IComputedData = {
  */
 const VirtualListRender = (props: IProps) => {
   const { itemSize, listData, screenHeight } = props;
-  const realScreenHeight = screenHeight ?? document.body.clientHeight; // 可是区域高度
-
   const listRef = useRef(null);
 
   const [computedData, setComputedData] = useState<IComputedData>({
     startOffset: 0,
     startIndex: 0,
-    endIndex: 10,
+    endIndex: null,
   });
+
+  useEffect(() => {
+    setComputedData({
+      startOffset: 0,
+      startIndex: 0,
+      endIndex: visibleCount,
+    });
+  }, []);
 
   // 监听滚动事件
   const scrollEvent = () => {
@@ -46,8 +52,8 @@ const VirtualListRender = (props: IProps) => {
   }, [listData, itemSize]);
 
   const visibleCount = useMemo(() => {
-    return Math.ceil(realScreenHeight / itemSize);
-  }, [itemSize]);
+    return Math.ceil(screenHeight / itemSize);
+  }, [itemSize, screenHeight]);
 
   /**
    * 真实显示列表数据
@@ -59,15 +65,10 @@ const VirtualListRender = (props: IProps) => {
   }, [computedData.startIndex, computedData.endIndex, listData]);
 
   return (
-    /**
-     * infinite-list-container 可视区域容器
-     * infinite-list-phantom 容器内的占位，高度为总列表高度，用于形成滚动条
-     * infinite-list 列表渲染区域
-     */
     <div
       className="infinite-list-container"
       style={{
-        height: realScreenHeight,
+        height: screenHeight,
       }}
       ref={listRef}
       onScroll={scrollEvent}
@@ -88,7 +89,7 @@ const VirtualListRender = (props: IProps) => {
             className="infinite-list-item"
             style={{
               height: itemSize,
-              lineHeight: itemSize,
+              lineHeight: `${itemSize - 21}px`,
             }}
             key={item.id}
           >
@@ -102,6 +103,7 @@ const VirtualListRender = (props: IProps) => {
 
 VirtualListRender.defaultProps = {
   itemSize: 50,
+  screenHeight: document.body.clientHeight,
 };
 
 export default VirtualListRender;
