@@ -43,8 +43,8 @@ export default () => {
 };
 
 const style = {
-  height: '50px',
-  width: '26px',
+  // height: '30px',
+  // width: '26px',
   marginRight: 6,
   border: '1px solid black',
   borderRadius: 8,
