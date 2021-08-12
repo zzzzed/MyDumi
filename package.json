@@ -33,10 +33,12 @@
     "antd": "^4.16.6",
     "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.3",
+    "faker": "^5.5.3",
     "qs": "^6.10.1",
     "react": "^16.12.0"
   },
   "devDependencies": {
+    "@types/faker": "^5.5.7",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.0.5",
     "dumi": "^1.0.9",

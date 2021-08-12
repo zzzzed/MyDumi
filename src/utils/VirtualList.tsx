@@ -5,7 +5,7 @@ import { debounce as _debounce } from 'lodash';
 interface IProps {
   itemSize: number; // 每项的高度
   listData: any[]; // 元数据
-  screenHeight: number; // 可是区域高度
+  screenHeight: number; // 可视区域高度
 }
 
 type IComputedData = {
