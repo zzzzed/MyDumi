@@ -1,12 +1,6 @@
-import React, {
-  useEffect,
-  useState,
-  useMemo,
-  useRef,
-  useLayoutEffect,
-} from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import './VirtualList.less';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 /**
  * 虚拟列表-动态高度

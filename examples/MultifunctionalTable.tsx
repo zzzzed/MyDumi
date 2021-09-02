@@ -3,7 +3,7 @@ import { MultifunctionalTable } from '../src';
 import { Button, Form } from 'antd';
 import moment from 'moment';
 import { Item, GroupItem } from '@/MultifunctionalTable/type';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const data = [
   {

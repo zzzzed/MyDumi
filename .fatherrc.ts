@@ -1,6 +1,9 @@
 export default {
   entry: 'src/index.ts',
-  esm: 'babel',
+  esm: {
+    type: 'babel',
+    minify: true,
+  },
   disableTypeCheck: true,
   extraBabelPlugins: [
     [
@@ -16,6 +19,15 @@ export default {
         libraryName: 'antd',
         libraryDirectory: 'es',
         style: true,
+      },
+    ],
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        alias: {
+          '@': './src',
+        },
       },
     ],
   ],

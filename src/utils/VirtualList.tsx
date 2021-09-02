@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import './VirtualList.less';
-import { debounce as _debounce } from 'lodash';
+import { debounce as _debounce } from 'lodash-es';
 
 interface IProps {
   itemSize: number; // 每项的高度
