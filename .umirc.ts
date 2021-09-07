@@ -24,7 +24,11 @@ export default defineConfig({
       'antd',
     ],
   ],
+  alias: {
+    '@': path.resolve(__dirname, 'src'),
+    '@root': path.resolve(__dirname),
+  },
   chainWebpack(memo, { env, webpack, createCSSRule }) {
-    memo.resolve.alias.set('@', path.resolve(__dirname, 'src'));
+    // memo.resolve.alias.set('@', path.resolve(__dirname, 'src'));
   },
 });
