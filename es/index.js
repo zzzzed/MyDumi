@@ -1,2 +1,6 @@
+import 'moment/locale/zh-cn';
 import CommonTree from './CommonTree';
-export { CommonTree };
+import MultifunctionalTable from './MultifunctionalTable';
+import FunctionModal from './FunctionModal';
+import SlotMachine from './business-component/SlotMachine';
+export { CommonTree, MultifunctionalTable, FunctionModal, SlotMachine };

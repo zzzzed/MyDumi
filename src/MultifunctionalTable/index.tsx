@@ -2,7 +2,8 @@ import React from 'react';
 import { Table, Form } from 'antd';
 import './index.less';
 import { Item, GroupItem, IMultifunctionalTableProps } from './type';
-import EditableCell from './components/editableCell';
+// import EditableCell from './components/editableCell';
+import EditableCell from '@/MultifunctionalTable/components/editableCell';
 
 const MultifunctionalTable = (props: IMultifunctionalTableProps) => {
   const { columns, sourceData, GroupTitle, form, editingKey } = props;

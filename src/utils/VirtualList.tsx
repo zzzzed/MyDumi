@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import './VirtualList.less';
+import { debounce as _debounce } from 'lodash-es';
 
 interface IProps {
   itemSize: number; // 每项的高度
   listData: any[]; // 元数据
-  screenHeight: number; // 可是区域高度
+  screenHeight: number; // 可视区域高度
 }
 
 type IComputedData = {
@@ -35,7 +36,7 @@ const VirtualListRender = (props: IProps) => {
   }, []);
 
   // 监听滚动事件
-  const scrollEvent = () => {
+  const scrollEvent = _debounce(() => {
     //@ts-ignore
     let scrollTop = listRef.current.scrollTop;
     setComputedData({
@@ -43,7 +44,7 @@ const VirtualListRender = (props: IProps) => {
       startOffset: scrollTop - (scrollTop % itemSize),
       endIndex: Math.floor(scrollTop / itemSize) + visibleCount,
     });
-  };
+  }, 10);
 
   /**
    * 列表总高度
@@ -87,7 +88,7 @@ const VirtualListRender = (props: IProps) => {
       >
         {visibleData?.map(item => (
           <div
-            className="infinite-list-item"
+            className={`infinite-list-item infinite-list-item-${item.id}`}
             style={{
               height: itemSize,
               lineHeight: `${itemSize - 21}px`,

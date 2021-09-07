@@ -1,3 +1,4 @@
+import 'moment/locale/zh-cn';
 import CommonTree from './CommonTree';
 import MultifunctionalTable from './MultifunctionalTable';
 import FunctionModal from './FunctionModal';

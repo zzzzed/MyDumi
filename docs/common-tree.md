@@ -1,6 +1,6 @@
 # CommonTree 树组件
 
-<code src="../examples/CommonTree.tsx" />
+<code src="@root/examples/CommonTree.tsx" />
 
 ### 属性设置
 

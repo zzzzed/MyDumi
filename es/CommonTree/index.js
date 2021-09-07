@@ -34,12 +34,65 @@ function _nonIterableSpread() {
 }
 
 function _iterableToArray(iter) {
-  if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter))
+  if (
+    (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null) ||
+    iter['@@iterator'] != null
+  )
     return Array.from(iter);
 }
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function(key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function(key) {
+        Object.defineProperty(
+          target,
+          key,
+          Object.getOwnPropertyDescriptor(source, key),
+        );
+      });
+    }
+  }
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true,
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
 }
 
 function _slicedToArray(arr, i) {
@@ -76,18 +129,18 @@ function _arrayLikeToArray(arr, len) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === 'undefined' || !(Symbol.iterator in Object(arr)))
-    return;
+  var _i =
+    arr == null
+      ? null
+      : (typeof Symbol !== 'undefined' && arr[Symbol.iterator]) ||
+        arr['@@iterator'];
+  if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
-  var _e = undefined;
+  var _s, _e;
   try {
-    for (
-      var _i = arr[Symbol.iterator](), _s;
-      !(_n = (_s = _i.next()).done);
-      _n = true
-    ) {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
       if (i && _arr.length === i) break;
     }
@@ -119,7 +172,8 @@ export default function CommonTree(props) {
     onTreeSelect = props.onTreeSelect,
     checkTreeNode = props.checkTreeNode,
     onTreeDropEnd = props.onTreeDropEnd,
-    style = props.style;
+    style = props.style,
+    hasExpandedKeys = props.hasExpandedKeys;
 
   var _useState = useState(gData),
     _useState2 = _slicedToArray(_useState, 2),
@@ -138,14 +192,28 @@ export default function CommonTree(props) {
 
   useEffect(function() {
     if (checkable)
-      setIProps({
-        newCheckedKeys: newCheckedKeys,
-      });
+      setIProps(
+        _objectSpread(
+          _objectSpread({}, Iprops),
+          {},
+          {
+            newCheckedKeys: newCheckedKeys,
+          },
+        ),
+      );
   }, []);
   useEffect(
     function() {
       setNewgData(gData);
       setNewCheckedKeys(checkedKeys);
+
+      if (hasExpandedKeys) {
+        setIProps(
+          _objectSpread(_objectSpread({}, Iprops), {
+            expandedKeys: handleExpandedKeys(gData, []),
+          }),
+        );
+      }
     },
     [gData, checkedKeys],
   );
@@ -226,6 +294,32 @@ export default function CommonTree(props) {
     }
   };
 
+  var handleExpandedKeys = function handleExpandedKeys(data, arr) {
+    for (var i = 0; i < data.length; i++) {
+      arr.push(data[i].key);
+
+      if (data[i].children) {
+        handleExpandedKeys(data[i].children, arr);
+      }
+    }
+
+    return arr;
+  };
+
+  var onExpand = function onExpand(expandedKeys) {
+    if (props.hasExpandedKeys) {
+      setIProps(
+        _objectSpread(
+          _objectSpread({}, Iprops),
+          {},
+          {
+            expandedKeys: expandedKeys,
+          },
+        ),
+      );
+    }
+  };
+
   return /*#__PURE__*/ React.createElement(
     'div',
     {
@@ -245,6 +339,7 @@ export default function CommonTree(props) {
           treeData: newgData,
           onDragEnd: dropEnd,
           onDrop: onDrop,
+          onExpand: onExpand,
           height: height,
         },
         Iprops,
