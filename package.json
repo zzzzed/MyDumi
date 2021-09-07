@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "homepage": "https://zzzzed.github.io/MyDumi/index.html",
   "scripts": {
-    "start": "dumi dev",
-    "docs:build": "ANALYZE=1 dumi build",
+    "start": "ANALYZE=1 dumi dev",
+    "docs:build": "dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
     "dumi": "node --max_old_space_size=4096 ./node_modules/dumi/bin/dumi.js build",
     "build": "father-build",
