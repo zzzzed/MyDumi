@@ -46,7 +46,7 @@ function observe<T extends object>(initialVal: T, cb: () => void): T {
 }
 
 export default function useReactive<S extends object>(initialVal: S): S {
-  const [, forceUpdate] = useReducer(n => n + 1, 0); // 为什么n++无效，n+1有效
+  const [, forceUpdate] = useReducer(n => ++n, 0); // 为什么n++无效，n+1有效,(n++ 先赋值在自加)
   const stateRef = useRef<S>(initialVal);
   const state = useCreation(() => observe(stateRef.current, forceUpdate), []);
   return state;
